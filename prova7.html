@@ -1,0 +1,41 @@
+<script>
+    const codigo = 'zfIymAbIbI';
+    const url = 'https://api-nextgen.ciandt.com/api/challenge/nextgen/question-7';
+    const req = new Request(url, {
+        method: 'GET',
+        headers: {
+            Accept: 'aplication/json',
+            Authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTc3MDcwNDAzYTUwMmRlNWE1ZjY3YyIsImlhdCI6MTU3MTY3MjExNX0.XaLpLqNOIScPTGtTRoHJFNP1zrU_TKJSvWdtOpEu2ds',
+        }
+    });
+
+    const ordenar = (top, bot) => {
+        let ch1 = top.codigo;
+        let ch2 = bot.codigo;
+
+        if (ch1 > ch2) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
+    fetch(req).then((resp) => {
+        if (resp.ok) {
+            return resp.json();
+        } else {
+            throw new Error('Something Wrong!');
+        }
+    }).then((resp) => {
+        let values = Object.values(resp).flat(1);
+        let trans = values.sort(ordenar);
+
+        for (let i = 0; i < trans.length; i++) {
+            if (trans[i].codigo === codigo) {
+                console.log(codigo + ' está na posição ' + i);
+            }
+        }
+    }).catch((err) => {
+        console.log(err);
+    });
+</script>

@@ -1,0 +1,26 @@
+<script>
+    function* proxInt() {
+        let i = 1
+        while (true) {
+            yield i;
+            i++
+        }
+    }
+    let v = proxInt();
+    let result = 0;
+    let elements = 1;
+    let cont = true;
+    while (cont) {
+        for (let i = 1; i <= elements; i++) {
+            let num = v.next().value;
+            if (num === 1985) {
+                cont = false;
+                break;
+            }
+        }
+        result++;
+        elements += 2;
+    }
+
+    console.log(result);
+</script>

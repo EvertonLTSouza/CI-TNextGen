@@ -1,0 +1,31 @@
+<script>
+    function* proxInt() {
+        let i = 1
+        while (true) {
+            yield i;
+            i++
+        }
+    }
+
+    let v = proxInt();
+    let result = 0
+    let nums = [];
+    for (let i = 1; i < 10000; i++) nums.push(v.next().value);
+
+    let hundreds = nums.map((value) => {
+        let hund = 1;
+        let str = value.toString();
+        for (let i = 0; i < str.length; i++) {
+            hund = str.charAt(i) * hund;
+        }
+        return hund;
+    }).filter((value) => {
+        if (value === 100) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    console.log(hundreds.length);
+</script>

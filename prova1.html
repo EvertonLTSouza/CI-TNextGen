@@ -1,0 +1,44 @@
+<script>
+    function* proxInt() {
+        let i = 1
+        while (true) {
+            yield i;
+            i++
+        }
+    }
+
+    let v1 = proxInt();
+    let possibilidades = [];
+
+    for (let i = 1; i < 10; i++) {
+        let vol1 = v1.next().value;
+        let v2 = proxInt();
+        for (let j = 1; j < 10; j++) {
+            possibilidades.push([vol1, v2.next().value]);
+        }
+    }
+
+    let result = possibilidades.map((fluxos) => {
+        let volume = (fluxos[0] + fluxos[1]) * 6;
+        let result = 0;
+        for (let horas = 1; horas < 15; horas++) {
+            let torn1 = fluxos[0] * horas;
+            let torn2 = fluxos[1] * (horas + 5);
+
+            if (torn1 === torn2 && torn1 === volume) {
+                result = horas;
+            }
+
+        }
+        return result
+    }).filter((value) => {
+        if (value === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+
+    console.log('Irá levar ' + result[0] + ' Horas.');
+    console.log(result);
+</script>

@@ -1,0 +1,15 @@
+<script>
+
+    let result = 0;
+    let num = '';
+    const base = ['1', '4', '6', '8'];
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            for (let k = 0; k < 4; k++) {
+                num = base[i] + base[j] + base[k];
+                result += parseInt(num);
+            }
+        }
+    }
+    console.log(result);
+</script>

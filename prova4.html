@@ -1,0 +1,59 @@
+<script>
+    const url = 'https://api-nextgen.ciandt.com/api/challenge/nextgen/question-4';
+    const req = new Request(url, {
+        method: 'GET',
+        headers: {
+            Accept: 'aplication/json',
+            Authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVkYTc3MDcwNDAzYTUwMmRlNWE1ZjY3YyIsImlhdCI6MTU3MTY3MjExNX0.XaLpLqNOIScPTGtTRoHJFNP1zrU_TKJSvWdtOpEu2ds',
+        }
+    });
+    const primo = num => {
+        for (let i = 2; i < num; i++) {
+            if (num % i === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    const filt = num => {
+        if (num > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+
+    fetch(req).then((resp) => {
+        if (resp.ok) {
+            return resp.json();
+        } else {
+            throw new Error('Something Wrong!');
+        }
+    }).then((json) => {
+        let requi = Object.values(json);
+
+        let parc = requi.flat(2).map(value => {
+            if (primo(value)) {
+                return (value * 2) - 200;
+            } else {
+                return 0;
+            }
+        }).filter(filt);
+
+
+
+        let result = [];
+        let h = 0;
+
+        for (let i = 0; i < 16; i++) {
+            result[h] = [parc[i], parc[i + 1], parc[i + 2], parc[i + 3]];
+            i += 3;
+            h++;
+        }
+
+        console.log(result);
+    }).catch((err) => {
+        console.log(err);
+    });
+</script>
